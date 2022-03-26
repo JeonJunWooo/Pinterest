@@ -3,12 +3,12 @@
 {% block content %}
 
 
-    <div style="border-radius: 1rem; margin: 2rem; text-align: center" ">
+    <div style="border-radius: 1rem; margin: 2rem; text-align: center">
         <h1 style="font-family: 'Single Day',cursive;">
             Hello World LIST
         </h1>
 
-        <form action="/account/hello_world/" method="post">
+        <form action="{% url 'accountapp:hello_world'%}" method="post">
             {% csrf_token %}
 
             <div>
