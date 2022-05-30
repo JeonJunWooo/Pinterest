@@ -2,9 +2,9 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 # Create your views here.
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import CreateView, DetailView, ListView, DeleteView, UpdateView
 from django.views.generic.list import MultipleObjectMixin
 
 from articleapp.models import Article
@@ -42,6 +42,29 @@ class ProjectDetailView(DetailView, MultipleObjectMixin):
         return super(ProjectDetailView, self).get_context_data(object_list=object_list,
                                                                subscription=subscription,
                                                                **kwargs)
+
+
+
+@method_decorator(login_required, 'get')
+@method_decorator(login_required, 'post')
+class ProjectDeleteView(DeleteView):
+    model = Project
+    context_object_name = 'target_project'
+    success_url = reverse_lazy('projectapp:list')
+    template_name = 'projectapp/delete.html'
+
+
+
+@method_decorator(login_required, 'get')
+@method_decorator(login_required, 'post')
+class ProjectUpdateView(UpdateView):
+    model = Project
+    context_object_name = 'target_project'
+    form_class = ProjectCreationForm
+    template_name = template_name = 'projectapp/update.html'
+
+    def get_success_url(self):
+        return reverse('projectapp:detail', kwargs={'pk': self.object.pk})
 
 
 
