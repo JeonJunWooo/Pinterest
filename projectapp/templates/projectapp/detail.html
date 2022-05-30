@@ -18,25 +18,27 @@
       {% if user.is_authenticated %}
         {% if not subscription %}
         <a href="{% url 'subscribeapp:subscribe' %}?project_pk={{ target_project.pk }}"
-           class="btn btn-primary rounded-pill px-4">
-          Subscribe
+           class="btn btn-outline-dark rounded-pill px-4">
+          가게찜하기
         </a>
         {% else %}
         <a href="{% url 'subscribeapp:subscribe' %}?project_pk={{ target_project.pk }}"
-           class="btn btn-dark rounded-pill px-4">
-          Unsubscribe
+           class="btn btn-outline-danger rounded-pill px-4">
+          팔로우취소
         </a>
         {% endif %}
-
+        <div style="text-align: right; margin-right: 3rem">
         <a href="{% url 'projectapp:update' pk=target_project.pk %}"
-                   class="btn btn-light rounded-pill px-4">
-                    프로젝트 수정
+                   class="btn btn-outline-dark rounded-pill px-4">
+                    수정
         </a>
 
         <a href="{% url 'projectapp:delete' pk=target_project.pk %}"
-                   class="btn btn-danger rounded-pill px-4">
-                    프로젝트 삭제
+                   class="btn btn-outline-danger rounded-pill px-4">
+                    삭제
         </a>
+        </div>
+
 
       {% endif %}
     </div>
